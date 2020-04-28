@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long int
+
+const int N = 1e5;
+vector<int> gr[N];
+int visited[N];
+
+int bfs(int root){
+    queue<int> Q;
+    Q.push(root);
+    visited[root]=1;
+    while(!Q.empty()){
+        int cur = Q.front();
+        Q.pop();
+        cout<<cur<<" ";
+        for(auto& it: gr[cur]){
+            if(!visited[it]){
+                visited[it]=1;
+                Q.push(it);
+            }
+        }
+    }
+}
+
+int32_t main() {
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int x,y;
+        cin>>x>>y;
+        gr[x].push_back(y);
+        gr[y].push_back(x);
+    }
+    bfs(0);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

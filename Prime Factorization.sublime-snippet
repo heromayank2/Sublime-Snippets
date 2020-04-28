@@ -1,0 +1,57 @@
+<snippet>
+	<content><![CDATA[
+//Mayank Goyal
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+const int N = 1e6;
+const int MOD = 1e9+7;
+
+int p[N]={0};
+vector<int> primes;
+
+void sieve(){
+	for(int i=2;i<N;i++){
+		if(p[i]==0){
+			primes.push_back(i);
+			for(int j = i*i;j<N;j+=i){
+				p[j]=1;
+			}
+		}
+	}
+}
+
+void PF(int m){
+	vector<int> factors; // prime factors
+	map<int,int> count; // factor count
+	factors.clear();
+	int i = 0, p = primes[0];
+	while(p*p<=m){
+		if(m%p==0){
+			factors.push_back(p);
+			while(m%p==0){
+				count[p]++;
+				m = m/p;
+			}
+		}
+		i++;
+		p = primes[i];
+	}
+}
+
+int32_t main(){
+	sieve();
+	//int t;cin>>t;while(t)
+	{
+		int n;
+		cin>>n;
+		PF(n);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prime factorisation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

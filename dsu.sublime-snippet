@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+
+struct dsu{
+    vector<int> p;
+    int comp;
+    void init(int n){
+        p.clear();
+        p.resize(n);
+        iota(p.begin(),p.end(),0);
+        comp = n;
+    }
+    int get(int x){
+        return (x==p[x]?x:(p[x]=get(p[x])));
+    }
+    void unite(int x,int y){
+        x = get(x);
+        y = get(y);
+        if(x!=y){
+            p[x]=y;
+            comp--;
+        }
+    }
+}G;
+
+int32_t main() {
+	int n;
+	cin>>n;
+	G.init(n);
+	for(int i=0;i<n;i++){
+	    int x,y;
+	    cin>>x>>y;
+	    x--;y--;
+	    G.unite(x,y);
+	}
+	return 0;
+}
+
+]]></content>
+	<tabTrigger>dsu</tabTrigger>
+</snippet>

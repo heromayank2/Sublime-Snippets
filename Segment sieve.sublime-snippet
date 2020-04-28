@@ -1,0 +1,57 @@
+<snippet>
+	<content><![CDATA[
+//Mayank Goyal
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+const int N = 1e6;
+const int MOD = 1e9+7;
+
+vector<int> primes;
+int p[N]={0};
+
+void segmentSieve(){
+	for(int i=2;i<N;i++){
+		if(p[i]==0){
+			primes.push_back(i);
+			for(int j = i*i;j<N;j+=i){
+				p[j]=1;
+			}
+		}
+	}
+}
+
+int32_t main(){
+	segmentSieve();
+	int t;cin>>t;while(t--)
+	{
+		int n,m;
+		cin>>m>>n;
+		bool segment[n-m+1];
+		for(int i=0;i<n-m+1;i++){
+			segment[i] = false;
+		}
+		for(auto& x:primes){
+			if(x*x>n)break;
+			int start = (m/x)*x;
+			if(x>=m && x<=n){
+				start = x*2;
+			}
+			for(int i = start;i<=n;i+=x){
+				segment[i-m]=1;
+			}
+		}
+		for(int i=m;i<=n;i++){
+			if(segment[i-m]==0 && i!=1){
+				cout<<i<<" ";
+			}
+		}
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment sieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,70 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+
+const int N = 1e5;
+vector<int> gr[N];
+int visited[N];
+int color[N];
+
+int isBipartiteBFS(int root){
+    queue<int> Q;
+    Q.push(root);
+    color[root] = 1;
+    visited[root]=1;
+    while(!Q.empty()){
+        int cur = Q.front();
+        Q.pop();
+        for(auto& it : gr[cur]){
+            // cout<<it<<" ";
+            if(!visited[it]){
+                visited[it]=1;
+                color[it] = 1 - color[cur];
+                Q.push(it);
+            }
+            if(visited[it] && (color[it]==color[cur])){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int isBipartiteDFS(int cur){
+    visited[cur] = 1;
+    for(auto& it: gr[cur]){
+        if(visited[it] && color[it]==color[cur]) return -1;
+        if(!visited[it]){
+            color[it] = 1-color[cur];
+            if(isBipartiteDFS(it)==-1){
+                return -1;
+            }
+        }
+    }
+    return 1;
+}
+
+int32_t main() {
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int x,y;
+        cin>>x>>y;
+        gr[x].push_back(y);
+        gr[y].push_back(x);
+        color[i]=-1;
+    }
+    // cout<<isBipartiteBFS(0)<<"\n";
+    color[0]=1;
+    cout<<isBipartiteDFS(0)<<"\n";
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bipartite</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
